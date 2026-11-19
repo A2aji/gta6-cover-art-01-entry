@@ -3,21 +3,69 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cover Snap</title>
+<title>Sunset Press — GTA 6-style cover maker</title>
+<link rel="icon" href="data:,">
 <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+<header class="topbar">
+  <div class="brand"><span class="brand-mark">SP</span><div><h1>Sunset Press</h1><p>Turn your photos into a GTA 6-style poster cover — offline, in seconds.</p></div></div>
+  <div class="top-actions">
+    <button id="undo" type="button" title="Undo">↩ Undo</button>
+    <button id="redo" type="button" title="Redo">↪ Redo</button>
+    <button id="exportAll" type="button" class="primary">⬇ Export all sizes</button>
+  </div>
+</header>
 <main class="app">
-  <section class="controls">
-    <h1>Cover Snap</h1>
-    <p>A photo and a caption, made into a square cover.</p>
-    <label>Photo <input id="photo" type="file" accept="image/*"></label>
-    <label>Caption <input id="caption" type="text" maxlength="40" value="Sunset Heist"></label>
-    <button id="export" type="button">Export PNG 1080 x 1080</button>
-    <p id="status" role="status"></p>
+  <section class="stage">
+    <div class="preview-wrap" id="dropZone">
+      <canvas id="preview" width="1080" height="1080" aria-label="Cover preview — click a panel to select it, drag to move the photo"></canvas>
+      <p class="hint">Click a panel to select it · drag the photo to reposition it · drop photos here to add them</p>
+    </div>
+    <div class="tray" id="tray" aria-label="Photos"></div>
+    <div class="upload-row">
+      <label class="file-btn">＋ Add photos (up to 4 more)<input id="photoInput" type="file" accept="image/*" multiple hidden></label>
+      <span class="muted">Your photos never leave this machine.</span>
+    </div>
   </section>
-  <canvas id="cover" width="1080" height="1080" aria-label="The cover"></canvas>
+  <aside class="controls">
+    <section class="group">
+      <h2>1 · Layout</h2>
+      <div class="grid-btns" id="layoutBtns"></div>
+    </section>
+    <section class="group">
+      <h2>2 · Colour grade</h2>
+      <div class="grid-btns" id="gradeBtns"></div>
+    </section>
+    <section class="group">
+      <h2>3 · Caption</h2>
+      <label>Title <input id="titleInput" type="text" maxlength="28" value="SUNSET HEIST"></label>
+      <label>Subtitle (script) <input id="subtitleInput" type="text" maxlength="48" value="one last score in Sunset City"></label>
+      <label>Tagline <input id="taglineInput" type="text" maxlength="48" value="EVERY SUNSET HAS A PRICE"></label>
+      <label>Badge ribbon <input id="badgeInput" type="text" maxlength="20" value="SUNSET PRESS"></label>
+      <div class="heat-row"><span>Heat</span><div class="heat-btns" id="heatBtns"></div></div>
+    </section>
+    <section class="group">
+      <h2>4 · Selected panel</h2>
+      <p class="muted" id="panelLabel">Panel 1 of 1</p>
+      <label>Photo in this panel <select id="panelPhoto"></select></label>
+      <label>Zoom <input id="panelZoom" type="range" min="1" max="3" step="0.05" value="1"></label>
+      <div class="row-btns">
+        <button id="swapBtn" type="button">⇄ Swap photo with next panel</button>
+        <button id="resetPanBtn" type="button">Reset pan &amp; zoom</button>
+      </div>
+    </section>
+    <section class="group">
+      <h2>5 · Finish &amp; export</h2>
+      <label class="check"><input id="grainToggle" type="checkbox" checked> Film grain</label>
+      <label class="check"><input id="vignetteToggle" type="checkbox" checked> Vignette</label>
+      <label>Preview size <select id="previewSize"></select></label>
+      <div class="export-btns" id="exportBtns"></div>
+      <p id="status" role="status"></p>
+    </section>
+  </aside>
 </main>
+<footer class="foot">Sunset Press — an original cover maker. All artwork, lettering and samples are original or SIL OFL licensed; no Rockstar logo, artwork or font is used. Photos stay on your machine.</footer>
 <script type="module" src="./src/main.js"></script>
 </body>
 </html>
